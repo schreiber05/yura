@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YURA Archive | Busan · Music · Welfare</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0d0f18;
+      --bg-soft: #151827;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.16);
+      --text: #f5f5f7;
+      --muted: #a7abbc;
+      --point: #9cc9ff;
+      --point2: #ffb6d5;
+      --point3: #b8f7d4;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+      --radius: 26px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(156, 201, 255, 0.24), transparent 30%),
+        radial-gradient(circle at 90% 0%, rgba(255, 182, 213, 0.18), transparent 32%),
+        radial-gradient(circle at 70% 95%, rgba(184, 247, 212, 0.14), transparent 28%),
+        linear-gradient(135deg, #090b12 0%, #101321 48%, #171225 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .noise {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0;
+    }
+
+    .logo {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--point), var(--point2));
+      color: #101321;
+      box-shadow: 0 0 34px rgba(156, 201, 255, 0.35);
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+      transition: 0.2s;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 34px;
+      align-items: center;
+      padding: 48px 0 72px;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+      margin-bottom: 26px;
+    }
+
+    h1 span {
+      display: block;
+      background: linear-gradient(90deg, #ffffff, var(--point), var(--point2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 660px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--point), var(--point2));
+      color: #121520;
+    }
+
+    .btn.ghost {
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+    }
+
+    .player-card {
+      position: relative;
+      min-height: 470px;
+      border-radius: 36px;
+      padding: 28px;
+      background: linear-gradient(160deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+
+    .vinyl {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      margin: 24px auto 34px;
+      background:
+        radial-gradient(circle, #f6f6f6 0 9%, #202333 10% 16%, #0a0b10 17% 18%, #282b3c 19% 23%, #0a0b10 24% 25%, #1a1c29 26% 100%);
+      box-shadow: inset 0 0 0 18px rgba(255,255,255,0.03), 0 28px 60px rgba(0,0,0,0.42);
+      animation: spin 15s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .track-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .track {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .track small {
+      color: var(--muted);
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      letter-spacing: -0.05em;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      min-height: 220px;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,0.32);
+    }
+
+    .card.big {
+      grid-column: span 2;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .card ul {
+      padding-left: 18px;
+    }
+
+    .weather-box {
+      margin-top: 16px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .weather-box iframe {
+      width: 100%;
+      height: 190px;
+      border: 0;
+      filter: saturate(0.95);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #dfe8ff;
+      background: rgba(156, 201, 255, 0.12);
+      border: 1px solid rgba(156, 201, 255, 0.2);
+    }
+
+    .link-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 14px 15px;
+      border-radius: 17px;
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .stat-number {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 10px 0 8px;
+      background: linear-gradient(90deg, var(--point3), var(--point));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .music-board {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+    }
+
+    .song-card {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 28px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05)),
+        radial-gradient(circle at 90% 10%, rgba(255,182,213,0.24), transparent 36%);
+      box-shadow: var(--shadow);
+    }
+
+    .song-card strong {
+      font-size: 26px;
+      line-height: 1.25;
+    }
+
+    .song-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 48px 0 64px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent);
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 920px) {
+      header {
+        align-items: flex-start;
+        gap: 18px;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .grid, .music-board {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card.big {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .grid, .music-board {
+        grid-template-columns: 1fr;
+      }
+
+      .card.big {
+        grid-column: span 1;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .vinyl {
+        width: 220px;
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <div class="wrap">
+    <header>
+      <a href="#top" class="logo" aria-label="홈으로 이동">
+        <span class="logo-mark">♪</span>
+        <span>YURA</span>
+      </a>
+      <nav>
+        <a href="#weather">날씨</a>
+        <a href="#busan">부산 이슈</a>
+        <a href="#pknu">국립부경대 뉴스</a>
+        <a href="#welfare">사회복지 통계</a>
+        <a href="#music">노래</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div>
+          <div class="badge">Busan mood · Music archive · Welfare data</div>
+          <h1>김종현 선정<br><span>좋은 노래들 모음</span></h1>
+          <p>
+            좋아하는 노래의 분위기를 중심으로 부산의 날씨, 지역 이슈, 국립부경대학교 관련 뉴스,
+            그리고 사회복지 통계를 한 화면에 모은 개인 홈페이지입니다.
+          </p>
+          <div class="hero-buttons">
+            <a class="btn primary" href="#music">플레이리스트 보기</a>
+            <a class="btn ghost" href="https://github.com/schreiber05/yura" target="_blank" rel="noopener">GitHub 저장소</a>
+          </div>
+        </div>
+
+        <aside class="player-card" aria-label="음악 플레이어 디자인 카드">
+          <div class="vinyl" aria-hidden="true"></div>
+          <div class="track-list">
+            <div class="track"><span>01. Favorite Song</span><small>03:27</small></div>
+            <div class="track"><span>02. Busan Night</span><small>04:12</small></div>
+            <div class="track"><span>03. Soft Weather</span><small>02:58</small></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="weather">
+        <div class="section-title">
+          <h2>01. 부산 날씨</h2>
+          <p>부산의 현재 날씨를 바로 확인할 수 있도록 외부 날씨 페이지와 연결했습니다.</p>
+        </div>
+        <div class="grid">
+          <article class="card big">
+            <h3>Busan Weather</h3>
+            <p>아래 영역은 부산 날씨 정보를 불러오는 간단한 날씨 위젯입니다.</p>
+            <div class="weather-box">
+              <iframe title="부산 날씨" src="https://wttr.in/Busan?format=v2"></iframe>
+            </div>
+          </article>
+          <article class="card">
+            <h3>오늘 체크</h3>
+            <ul>
+              <li>기온과 체감온도</li>
+              <li>강수 여부</li>
+              <li>바람과 습도</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>바로가기</h3>
+            <p>더 자세한 예보는 기상청에서 확인할 수 있습니다.</p>
+            <a class="link-card" href="https://www.weather.go.kr" target="_blank" rel="noopener">기상청 보기 <span>↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="busan">
+        <div class="section-title">
+          <h2>02. 부산의 이슈</h2>
+          <p>지역 소식, 정책, 문화, 교통, 청년 이슈를 빠르게 탐색할 수 있는 섹션입니다.</p>
+        </div>
+        <div class="grid">
+          <article class="card big">
+            <h3>부산 이슈 키워드</h3>
+            <p>부산에서 자주 확인하면 좋은 이슈 키워드를 모았습니다.</p>
+            <div class="tag-row">
+              <span class="tag">지역 정책</span>
+              <span class="tag">청년 지원</span>
+              <span class="tag">해양 도시</span>
+              <span class="tag">교통</span>
+              <span class="tag">문화 행사</span>
+              <span class="tag">관광</span>
+            </div>
+            <a class="link-card" href="https://search.naver.com/search.naver?query=%EB%B6%80%EC%82%B0%20%EC%9D%B4%EC%8A%88" target="_blank" rel="noopener">부산 이슈 검색하기 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>공식 소식</h3>
+            <p>부산광역시의 공지, 보도자료, 정책 정보를 확인합니다.</p>
+            <a class="link-card" href="https://www.busan.go.kr" target="_blank" rel="noopener">부산시청 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>지역 뉴스</h3>
+            <p>신문·방송의 부산 지역 뉴스를 검색합니다.</p>
+            <a class="link-card" href="https://news.google.com/search?q=%EB%B6%80%EC%82%B0&hl=ko&gl=KR&ceid=KR%3Ako" target="_blank" rel="noopener">Google 뉴스 <span>↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="pknu">
+        <div class="section-title">
+          <h2>03. 국립부경대학교 뉴스</h2>
+          <p>국립부경대학교 관련 소식과 검색 링크를 한곳에 모았습니다.</p>
+        </div>
+        <div class="grid">
+          <article class="card big">
+            <h3>PKNU News Board</h3>
+            <p>
+              학교 공식 홈페이지, 입학·학사 공지, 연구 성과, 지역 협력 관련 뉴스를 확인할 수 있습니다.
+            </p>
+            <div class="tag-row">
+              <span class="tag">국립부경대학교</span>
+              <span class="tag">학사공지</span>
+              <span class="tag">대학 뉴스</span>
+              <span class="tag">연구</span>
+            </div>
+            <a class="link-card" href="https://www.pknu.ac.kr" target="_blank" rel="noopener">국립부경대학교 공식 홈페이지 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>뉴스 검색</h3>
+            <p>국립부경대학교 관련 최신 뉴스를 검색합니다.</p>
+            <a class="link-card" href="https://news.google.com/search?q=%EA%B5%AD%EB%A6%BD%EB%B6%80%EA%B2%BD%EB%8C%80%ED%95%99%EA%B5%90&hl=ko&gl=KR&ceid=KR%3Ako" target="_blank" rel="noopener">뉴스 보기 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>학교 생활</h3>
+            <p>캠퍼스 공지와 학내 소식을 함께 확인하기 좋습니다.</p>
+            <a class="link-card" href="https://www.pknu.ac.kr/main/163" target="_blank" rel="noopener">공지사항 <span>↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="welfare">
+        <div class="section-title">
+          <h2>04. 사회복지 관련 통계</h2>
+          <p>사회복지 주제의 핵심 지표를 보기 쉽게 정리하고, 원자료 확인 링크를 연결했습니다.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>복지 지출</h3>
+            <div class="stat-number">Data</div>
+            <p>사회복지 예산, 사회보장 지출 흐름을 확인할 수 있습니다.</p>
+            <a class="link-card" href="https://www.ssc.go.kr" target="_blank" rel="noopener">사회보장위원회 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>인구·가구</h3>
+            <div class="stat-number">KOSIS</div>
+            <p>1인 가구, 고령인구, 소득, 빈곤 관련 통계를 확인합니다.</p>
+            <a class="link-card" href="https://kosis.kr" target="_blank" rel="noopener">국가통계포털 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>복지 서비스</h3>
+            <div class="stat-number">Info</div>
+            <p>대상자별 복지서비스와 지원제도를 탐색합니다.</p>
+            <a class="link-card" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener">복지로 <span>↗</span></a>
+          </article>
+          <article class="card">
+            <h3>지역 복지</h3>
+            <div class="stat-number">Busan</div>
+            <p>부산 지역 복지 정책과 지원 정보를 연결합니다.</p>
+            <a class="link-card" href="https://www.busan.go.kr/welfare" target="_blank" rel="noopener">부산 복지 <span>↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section id="music">
+        <div class="section-title">
+          <h2>05. My Song Mood</h2>
+          <p>좋아하는 노래를 기반으로 홈페이지의 메인 분위기를 구성하는 공간입니다. 곡명은 자유롭게 바꿔 사용하세요.</p>
+        </div>
+        <div class="music-board">
+          <article class="song-card">
+            <div>
+              <small>MOOD 01</small>
+              <strong>잔잔한 밤에 듣는 노래</strong>
+              <p>조용한 밤, 부산 바다, 느린 리듬의 감성을 담은 플레이리스트 카드입니다.</p>
+            </div>
+            <a class="link-card" href="https://www.youtube.com/results?search_query=%EC%9E%94%EC%9E%94%ED%95%9C+%EB%85%B8%EB%9E%98" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
+          </article>
+          <article class="song-card">
+            <div>
+              <small>MOOD 02</small>
+              <strong>걸으면서 듣는 노래</strong>
+              <p>통학길, 산책길, 버스 창밖 풍경과 잘 어울리는 분위기의 공간입니다.</p>
+            </div>
+            <a class="link-card" href="https://www.youtube.com/results?search_query=%EA%B1%B8%EC%9C%BC%EB%A9%B4%EC%84%9C+%EB%93%A3%EB%8A%94+%EB%85%B8%EB%9E%98" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
+          </article>
+          <article class="song-card">
+            <div>
+              <small>MOOD 03</small>
+              <strong>기분 전환 노래</strong>
+              <p>하루의 분위기를 바꾸고 싶을 때 듣는 밝은 음악들을 모아두는 카드입니다.</p>
+            </div>
+            <a class="link-card" href="https://www.youtube.com/results?search_query=%EA%B8%B0%EB%B6%84%EC%A0%84%ED%99%98+%EB%85%B8%EB%9E%98" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-line"></div>
+      <p>© 2026 YURA Archive. Built for GitHub Pages.</p>
+      <p>Repository: github.com/schreiber05/yura</p>
+    </footer>
+  </div>
+</body>
+</html>
