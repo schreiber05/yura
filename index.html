@@ -12,17 +12,20 @@
     }
 
     :root {
-      --bg: #0d0f18;
-      --bg-soft: #151827;
-      --card: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.16);
-      --text: #f5f5f7;
-      --muted: #a7abbc;
-      --point: #9cc9ff;
-      --point2: #ffb6d5;
-      --point3: #b8f7d4;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
-      --radius: 26px;
+      --bg: #070707;
+      --bg-deep: #0e0e0e;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-strong: rgba(255, 255, 255, 0.09);
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #f1eee8;
+      --muted: #aaa49a;
+      --gold: #c7a05a;
+      --rust: #8c3b24;
+      --red: #b22720;
+      --ash: #2a2926;
+      --green: #76836a;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+      --radius: 22px;
     }
 
     html {
@@ -34,11 +37,35 @@
       font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 10%, rgba(156, 201, 255, 0.24), transparent 30%),
-        radial-gradient(circle at 90% 0%, rgba(255, 182, 213, 0.18), transparent 32%),
-        radial-gradient(circle at 70% 95%, rgba(184, 247, 212, 0.14), transparent 28%),
-        linear-gradient(135deg, #090b12 0%, #101321 48%, #171225 100%);
+        radial-gradient(circle at 12% 0%, rgba(178, 39, 32, 0.22), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(199, 160, 90, 0.17), transparent 26%),
+        radial-gradient(circle at 70% 95%, rgba(118, 131, 106, 0.13), transparent 30%),
+        linear-gradient(135deg, #050505 0%, #0b0b0a 48%, #15110d 100%);
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     a {
@@ -46,19 +73,10 @@
       text-decoration: none;
     }
 
-    .noise {
-      pointer-events: none;
-      position: fixed;
-      inset: 0;
-      opacity: 0.06;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      z-index: 0;
-    }
-
     .wrap {
       position: relative;
       z-index: 1;
-      width: min(1120px, calc(100% - 36px));
+      width: min(1160px, calc(100% - 36px));
       margin: 0 auto;
     }
 
@@ -66,98 +84,119 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 28px 0;
+      padding: 26px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .logo {
       display: flex;
-      gap: 12px;
       align-items: center;
-      font-weight: 800;
-      letter-spacing: 0.08em;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
     }
 
     .logo-mark {
       width: 42px;
       height: 42px;
-      border-radius: 50%;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--point), var(--point2));
-      color: #101321;
-      box-shadow: 0 0 34px rgba(156, 201, 255, 0.35);
+      border-radius: 10px;
+      color: #070707;
+      background: linear-gradient(135deg, var(--gold), #f0d597);
+      box-shadow: 0 0 38px rgba(199, 160, 90, 0.22);
+      transform: rotate(-3deg);
     }
 
     nav {
       display: flex;
-      gap: 10px;
+      gap: 9px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
     nav a {
-      padding: 10px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 10px 13px;
       border-radius: 999px;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.05);
-      transition: 0.2s;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.11);
       font-size: 14px;
+      transition: 0.2s;
     }
 
     nav a:hover {
       color: var(--text);
-      border-color: rgba(255, 255, 255, 0.35);
+      border-color: rgba(199,160,90,0.55);
+      background: rgba(199,160,90,0.09);
       transform: translateY(-2px);
     }
 
     .hero {
-      min-height: 620px;
+      min-height: 660px;
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 34px;
       align-items: center;
-      padding: 48px 0 72px;
+      padding: 58px 0 78px;
     }
 
     .badge {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
+      gap: 10px;
       padding: 10px 14px;
+      margin-bottom: 22px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      color: var(--muted);
-      margin-bottom: 20px;
+      color: #d8c8a8;
+      border: 1px solid rgba(199,160,90,0.28);
+      background: rgba(199,160,90,0.08);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 18px rgba(178,39,32,0.8);
     }
 
     h1 {
-      font-size: clamp(44px, 8vw, 92px);
-      line-height: 0.95;
-      letter-spacing: -0.07em;
+      font-size: clamp(48px, 8.5vw, 104px);
+      line-height: 0.92;
+      letter-spacing: -0.09em;
       margin-bottom: 26px;
+      text-transform: uppercase;
     }
 
     h1 span {
       display: block;
-      background: linear-gradient(90deg, #ffffff, var(--point), var(--point2));
-      -webkit-background-clip: text;
       color: transparent;
+      -webkit-text-stroke: 1.4px rgba(241,238,232,0.86);
+      text-shadow: 0 18px 48px rgba(0,0,0,0.62);
     }
 
     .hero p {
+      max-width: 660px;
       color: var(--muted);
       font-size: 18px;
-      line-height: 1.8;
-      max-width: 660px;
+      line-height: 1.85;
+    }
+
+    .hero-copy strong {
+      color: var(--gold);
+      font-weight: 800;
     }
 
     .hero-buttons {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 30px;
+      margin-top: 32px;
     }
 
     .btn {
@@ -166,49 +205,83 @@
       justify-content: center;
       gap: 8px;
       padding: 14px 18px;
-      border-radius: 16px;
-      font-weight: 700;
+      border-radius: 14px;
+      font-weight: 800;
       transition: 0.2s;
       border: 1px solid transparent;
     }
 
     .btn.primary {
-      background: linear-gradient(135deg, var(--point), var(--point2));
-      color: #121520;
+      color: #090909;
+      background: linear-gradient(135deg, var(--gold), #f0d597);
+      box-shadow: 0 16px 42px rgba(199,160,90,0.22);
     }
 
     .btn.ghost {
-      border-color: rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.06);
       color: var(--text);
+      background: rgba(255,255,255,0.055);
+      border-color: rgba(255,255,255,0.14);
     }
 
     .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
     }
 
     .player-card {
       position: relative;
-      min-height: 470px;
-      border-radius: 36px;
-      padding: 28px;
-      background: linear-gradient(160deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(20px);
+      min-height: 510px;
       overflow: hidden;
+      border-radius: 30px;
+      padding: 28px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.11), rgba(255,255,255,0.035)),
+        radial-gradient(circle at 80% 10%, rgba(178,39,32,0.24), transparent 38%);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .player-card::before {
+      content: "E SENS";
+      position: absolute;
+      top: 22px;
+      right: -8px;
+      color: rgba(255,255,255,0.045);
+      font-size: 82px;
+      font-weight: 1000;
+      letter-spacing: -0.08em;
+      transform: rotate(4deg);
     }
 
     .vinyl {
-      width: 260px;
-      height: 260px;
+      position: relative;
+      width: 270px;
+      height: 270px;
+      margin: 42px auto 32px;
       border-radius: 50%;
-      margin: 24px auto 34px;
       background:
-        radial-gradient(circle, #f6f6f6 0 9%, #202333 10% 16%, #0a0b10 17% 18%, #282b3c 19% 23%, #0a0b10 24% 25%, #1a1c29 26% 100%);
-      box-shadow: inset 0 0 0 18px rgba(255,255,255,0.03), 0 28px 60px rgba(0,0,0,0.42);
-      animation: spin 15s linear infinite;
+        radial-gradient(circle, #c7a05a 0 7%, #0c0c0b 8% 13%, #23211d 14% 16%, #0b0b0b 17% 19%, #292723 20% 24%, #070707 25% 100%);
+      box-shadow:
+        inset 0 0 0 18px rgba(255,255,255,0.025),
+        inset 0 0 0 64px rgba(255,255,255,0.025),
+        0 34px 70px rgba(0,0,0,0.62);
+      animation: spin 17s linear infinite;
+    }
+
+    .vinyl::after {
+      content: "KJH MIX";
+      position: absolute;
+      inset: 94px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, var(--rust), #21120d);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #f1eee8;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
     }
 
     @keyframes spin {
@@ -225,37 +298,43 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
+      padding: 15px 16px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.11);
+    }
+
+    .track span {
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
     .track small {
-      color: var(--muted);
+      color: var(--gold);
+      font-weight: 900;
     }
 
     section {
-      padding: 72px 0;
+      padding: 74px 0;
     }
 
     .section-title {
       display: flex;
+      align-items: end;
       justify-content: space-between;
       gap: 18px;
-      align-items: end;
-      margin-bottom: 24px;
+      margin-bottom: 25px;
     }
 
     .section-title h2 {
-      font-size: clamp(30px, 4vw, 48px);
-      letter-spacing: -0.05em;
+      font-size: clamp(32px, 4vw, 52px);
+      letter-spacing: -0.07em;
     }
 
     .section-title p {
+      max-width: 570px;
       color: var(--muted);
-      line-height: 1.7;
-      max-width: 560px;
+      line-height: 1.75;
     }
 
     .grid {
@@ -265,19 +344,20 @@
     }
 
     .card {
+      min-height: 220px;
       border-radius: var(--radius);
       padding: 24px;
-      background: var(--card);
-      border: 1px solid var(--card-border);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
+      border: 1px solid var(--line);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      min-height: 220px;
+      backdrop-filter: blur(16px);
       transition: 0.2s;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: rgba(255,255,255,0.32);
+      border-color: rgba(199,160,90,0.42);
     }
 
     .card.big {
@@ -287,6 +367,7 @@
     .card h3 {
       font-size: 22px;
       margin-bottom: 12px;
+      color: #f5e8cc;
     }
 
     .card p, .card li {
@@ -300,9 +381,9 @@
 
     .weather-box {
       margin-top: 16px;
-      border-radius: 22px;
+      border-radius: 18px;
       overflow: hidden;
-      background: rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.28);
       border: 1px solid rgba(255,255,255,0.12);
     }
 
@@ -310,7 +391,7 @@
       width: 100%;
       height: 190px;
       border: 0;
-      filter: saturate(0.95);
+      filter: grayscale(0.35) contrast(1.05) sepia(0.18);
     }
 
     .tag-row {
@@ -323,33 +404,38 @@
     .tag {
       padding: 8px 11px;
       border-radius: 999px;
+      color: #ead9b5;
+      background: rgba(199,160,90,0.09);
+      border: 1px solid rgba(199,160,90,0.22);
       font-size: 13px;
-      color: #dfe8ff;
-      background: rgba(156, 201, 255, 0.12);
-      border: 1px solid rgba(156, 201, 255, 0.2);
     }
 
     .link-card {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
       margin-top: 16px;
       padding: 14px 15px;
-      border-radius: 17px;
+      border-radius: 15px;
       color: var(--text);
-      background: rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.26);
       border: 1px solid rgba(255,255,255,0.12);
+      transition: 0.2s;
+    }
+
+    .link-card:hover {
+      border-color: rgba(199,160,90,0.48);
+      background: rgba(199,160,90,0.08);
     }
 
     .stat-number {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: -0.05em;
       margin: 10px 0 8px;
-      background: linear-gradient(90deg, var(--point3), var(--point));
-      -webkit-background-clip: text;
+      font-size: 38px;
+      font-weight: 1000;
+      letter-spacing: -0.06em;
       color: transparent;
+      -webkit-text-stroke: 1px rgba(199,160,90,0.9);
     }
 
     .music-board {
@@ -359,47 +445,70 @@
     }
 
     .song-card {
-      min-height: 260px;
+      min-height: 280px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-radius: 28px;
+      border-radius: 26px;
       padding: 24px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.14);
       background:
-        linear-gradient(160deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05)),
-        radial-gradient(circle at 90% 10%, rgba(255,182,213,0.24), transparent 36%);
+        linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035)),
+        radial-gradient(circle at 90% 10%, rgba(178,39,32,0.2), transparent 38%);
       box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .song-card::before {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      right: -54px;
+      top: -54px;
+      border-radius: 50%;
+      border: 1px solid rgba(199,160,90,0.2);
+      background: rgba(199,160,90,0.045);
+    }
+
+    .song-card small {
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 0.08em;
     }
 
     .song-card strong {
-      font-size: 26px;
-      line-height: 1.25;
+      display: block;
+      margin-top: 10px;
+      font-size: 28px;
+      line-height: 1.22;
+      letter-spacing: -0.05em;
     }
 
     .song-card p {
       margin-top: 12px;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     footer {
       padding: 48px 0 64px;
-      color: var(--muted);
       text-align: center;
+      color: var(--muted);
     }
 
     .footer-line {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent);
       margin-bottom: 28px;
+      background: linear-gradient(90deg, transparent, rgba(199,160,90,0.32), transparent);
     }
 
     @media (max-width: 920px) {
       header {
         align-items: flex-start;
-        gap: 18px;
         flex-direction: column;
+        gap: 18px;
       }
 
       nav {
@@ -422,7 +531,7 @@
 
     @media (max-width: 640px) {
       .wrap {
-        width: min(100% - 24px, 1120px);
+        width: min(100% - 24px, 1160px);
       }
 
       .grid, .music-board {
@@ -442,17 +551,19 @@
         width: 220px;
         height: 220px;
       }
+
+      .vinyl::after {
+        inset: 76px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="noise"></div>
-
   <div class="wrap">
     <header>
       <a href="#top" class="logo" aria-label="홈으로 이동">
-        <span class="logo-mark">♪</span>
-        <span>YURA</span>
+        <span class="logo-mark">ES</span>
+        <span>김종현 선정 좋은 노래 모음</span>
       </a>
       <nav>
         <a href="#weather">날씨</a>
@@ -465,25 +576,26 @@
 
     <main id="top">
       <section class="hero">
-        <div>
-          <div class="badge">Busan mood · Music archive · Welfare data</div>
+        <div class="hero-copy">
+          <div class="badge">Raw Seoul sound · Busan archive · E SENS mood</div>
           <h1>김종현 선정<br><span>좋은 노래 모음</span></h1>
           <p>
-            좋아하는 노래의 분위기를 중심으로 부산의 날씨, 지역 이슈, 국립부경대학교 관련 뉴스,
-            그리고 사회복지 통계를 한 화면에 모은 개인 홈페이지입니다.
+            <strong>이센스의 거칠고 담백한 랩 무드</strong>를 바탕으로 만든 개인 홈페이지입니다.
+            어두운 배경, 낡은 골드 톤, 붉은 포인트를 사용해 날씨와 부산 이슈, 국립부경대학교 뉴스,
+            사회복지 통계까지 하나의 플레이리스트처럼 정리했습니다.
           </p>
           <div class="hero-buttons">
-            <a class="btn primary" href="#music">플레이리스트 보기</a>
+            <a class="btn primary" href="#music">이센스 플레이리스트</a>
             <a class="btn ghost" href="https://github.com/schreiber05/yura" target="_blank" rel="noopener">GitHub 저장소</a>
           </div>
         </div>
 
-        <aside class="player-card" aria-label="음악 플레이어 디자인 카드">
+        <aside class="player-card" aria-label="이센스 플레이어 카드">
           <div class="vinyl" aria-hidden="true"></div>
           <div class="track-list">
-            <div class="track"><span>01. No Boss - E SENS</span><small>♪</small></div>
-            <div class="track"><span>02. What The Hell - E SENS</span><small>♪</small></div>
-            <div class="track"><span>03. A Yo - E SENS</span><small>♪</small></div>
+            <div class="track"><span>01. No Boss - E SENS</span><small>PLAY</small></div>
+            <div class="track"><span>02. What The Hell - E SENS</span><small>PLAY</small></div>
+            <div class="track"><span>03. Radar - E SENS</span><small>PLAY</small></div>
           </div>
         </aside>
       </section>
@@ -491,7 +603,7 @@
       <section id="weather">
         <div class="section-title">
           <h2>01. 부산 날씨</h2>
-          <p>부산의 현재 날씨를 바로 확인할 수 있도록 외부 날씨 페이지와 연결했습니다.</p>
+          <p>부산의 현재 날씨를 어두운 플레이어 화면처럼 담았습니다.</p>
         </div>
         <div class="grid">
           <article class="card big">
@@ -520,11 +632,11 @@
       <section id="busan">
         <div class="section-title">
           <h2>02. 부산의 이슈</h2>
-          <p>지역 소식, 정책, 문화, 교통, 청년 이슈를 빠르게 탐색할 수 있는 섹션입니다.</p>
+          <p>도시의 소음, 거리의 흐름, 지역의 변화를 키워드로 정리했습니다.</p>
         </div>
         <div class="grid">
           <article class="card big">
-            <h3>부산 이슈 키워드</h3>
+            <h3>Busan Issue Keywords</h3>
             <p>부산에서 자주 확인하면 좋은 이슈 키워드를 모았습니다.</p>
             <div class="tag-row">
               <span class="tag">지역 정책</span>
@@ -552,13 +664,13 @@
       <section id="pknu">
         <div class="section-title">
           <h2>03. 국립부경대학교 뉴스</h2>
-          <p>국립부경대학교 관련 소식과 검색 링크를 한곳에 모았습니다.</p>
+          <p>학교 관련 소식을 힙합 매거진 카드처럼 배치했습니다.</p>
         </div>
         <div class="grid">
           <article class="card big">
             <h3>PKNU News Board</h3>
             <p>
-              학교 공식 홈페이지, 입학·학사 공지, 연구 성과, 지역 협력 관련 뉴스를 확인할 수 있습니다.
+              학교 공식 홈페이지, 학사 공지, 연구 성과, 지역 협력 관련 뉴스를 확인할 수 있습니다.
             </p>
             <div class="tag-row">
               <span class="tag">국립부경대학교</span>
@@ -584,12 +696,12 @@
       <section id="welfare">
         <div class="section-title">
           <h2>04. 사회복지 관련 통계</h2>
-          <p>사회복지 주제의 핵심 지표를 보기 쉽게 정리하고, 원자료 확인 링크를 연결했습니다.</p>
+          <p>차갑고 무거운 도시의 숫자를 사회복지 지표로 확인하는 공간입니다.</p>
         </div>
         <div class="grid">
           <article class="card">
             <h3>복지 지출</h3>
-            <div class="stat-number">Data</div>
+            <div class="stat-number">DATA</div>
             <p>사회복지 예산, 사회보장 지출 흐름을 확인할 수 있습니다.</p>
             <a class="link-card" href="https://www.ssc.go.kr" target="_blank" rel="noopener">사회보장위원회 <span>↗</span></a>
           </article>
@@ -601,13 +713,13 @@
           </article>
           <article class="card">
             <h3>복지 서비스</h3>
-            <div class="stat-number">Info</div>
+            <div class="stat-number">INFO</div>
             <p>대상자별 복지서비스와 지원제도를 탐색합니다.</p>
             <a class="link-card" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener">복지로 <span>↗</span></a>
           </article>
           <article class="card">
             <h3>지역 복지</h3>
-            <div class="stat-number">Busan</div>
+            <div class="stat-number">BUSAN</div>
             <p>부산 지역 복지 정책과 지원 정보를 연결합니다.</p>
             <a class="link-card" href="https://www.busan.go.kr/welfare" target="_blank" rel="noopener">부산 복지 <span>↗</span></a>
           </article>
@@ -616,33 +728,33 @@
 
       <section id="music">
         <div class="section-title">
-          <h2>05. My Song Mood</h2>
-          <p>좋아하는 노래를 기반으로 홈페이지의 메인 분위기를 구성하는 공간입니다. 곡명은 자유롭게 바꿔 사용하세요.</p>
+          <h2>05. E SENS Playlist</h2>
+          <p>좋아하는 이센스 곡을 중심으로 홈페이지의 메인 분위기를 완성했습니다.</p>
         </div>
         <div class="music-board">
           <article class="song-card">
             <div>
-              <small>MOOD 01</small>
-              <strong>잔잔한 밤에 듣는 노래</strong>
-              <p>조용한 밤, 부산 바다, 느린 리듬의 감성을 담은 플레이리스트 카드입니다.</p>
+              <small>TRACK 01</small>
+              <strong>No Boss</strong>
+              <p>무심하게 밀고 나가는 에너지와 날것의 태도를 담은 메인 트랙 카드입니다.</p>
             </div>
-            <a class="link-card" href="https://www.youtube.com/results?search_query=%EC%9E%94%EC%9E%94%ED%95%9C+%EB%85%B8%EB%9E%98" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
+            <a class="link-card" href="https://www.youtube.com/results?search_query=E+SENS+No+Boss" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
           </article>
           <article class="song-card">
             <div>
-              <small>MOOD 02</small>
-              <strong>걸으면서 듣는 노래</strong>
-              <p>통학길, 산책길, 버스 창밖 풍경과 잘 어울리는 분위기의 공간입니다.</p>
+              <small>TRACK 02</small>
+              <strong>What The Hell</strong>
+              <p>거친 질감과 직선적인 랩 무드를 살린 두 번째 추천곡입니다.</p>
             </div>
-            <a class="link-card" href="https://www.youtube.com/results?search_query=%EA%B1%B8%EC%9C%BC%EB%A9%B4%EC%84%9C+%EB%93%A3%EB%8A%94+%EB%85%B8%EB%9E%98" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
+            <a class="link-card" href="https://www.youtube.com/results?search_query=E+SENS+What+The+Hell" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
           </article>
           <article class="song-card">
             <div>
-              <small>MOOD 03</small>
-              <strong>기분 전환 노래</strong>
-              <p>하루의 분위기를 바꾸고 싶을 때 듣는 밝은 음악들을 모아두는 카드입니다.</p>
+              <small>TRACK 03</small>
+              <strong>Radar</strong>
+              <p>짧고 강하게 분위기를 전환하는 곡으로 플레이리스트의 마무리를 잡았습니다.</p>
             </div>
-            <a class="link-card" href="https://www.youtube.com/results?search_query=%EA%B8%B0%EB%B6%84%EC%A0%84%ED%99%98+%EB%85%B8%EB%9E%98" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
+            <a class="link-card" href="https://www.youtube.com/results?search_query=E+SENS+Radar" target="_blank" rel="noopener">노래 검색 <span>↗</span></a>
           </article>
         </div>
       </section>
@@ -650,7 +762,7 @@
 
     <footer>
       <div class="footer-line"></div>
-      <p>© 2026 YURA Archive. Built for GitHub Pages.</p>
+      <p>© 2026 김종현 선정 좋은 노래 모음. E SENS mood archive.</p>
       <p>Repository: github.com/schreiber05/yura</p>
     </footer>
   </div>
